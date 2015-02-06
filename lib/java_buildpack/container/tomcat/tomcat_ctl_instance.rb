@@ -54,7 +54,6 @@ module JavaBuildpack
         children.each { | file | puts file }
       end
       
-      end
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
         true
