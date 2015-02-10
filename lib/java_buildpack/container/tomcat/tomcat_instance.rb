@@ -53,7 +53,7 @@ module JavaBuildpack
         puts "Trying out files........................................................"
         children.each { | file | 
           puts file 
-          manipulate(children.children)
+          manipulate(file.children)
         }
       end
 
