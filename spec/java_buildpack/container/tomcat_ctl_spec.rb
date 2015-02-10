@@ -50,7 +50,7 @@ describe JavaBuildpack::Container::TomcatCtl do
 
 
   it 'creates submodules' do
-    expect(JavaBuildpack::Container::TomcatInstance)
+    expect(JavaBuildpack::Container::TomcatCtlInstance)
       .to receive(:new).with(sub_configuration_context(tomcat_configuration))
     expect(JavaBuildpack::Container::TomcatLifecycleSupport)
       .to receive(:new).with(sub_configuration_context(lifecycle_support_configuration))

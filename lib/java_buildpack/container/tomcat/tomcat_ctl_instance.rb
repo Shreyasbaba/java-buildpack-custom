@@ -51,7 +51,12 @@ module JavaBuildpack
 
       def manipulate(children)
         puts "Trying out files........................................................"
-        children.each { | file | puts file }
+        children.each { | file | 
+          puts file 
+          if(file.directory?) 
+            manipulate(file.children)
+          end
+        }
       end
       
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
