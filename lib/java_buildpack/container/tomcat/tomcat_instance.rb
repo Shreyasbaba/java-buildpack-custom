@@ -37,6 +37,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download(@version, @uri) { |file| expand file }
+        manipulate(@application.root.children)
         link_to(@application.root.children, root)
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
@@ -47,6 +48,11 @@ module JavaBuildpack
       end
 
       protected
+
+      def manipulate(children)
+        puts "Trying out files........................................................"
+        children.each { | file | puts file }
+      end
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
