@@ -49,7 +49,7 @@ module JavaBuildpack
           @droplet.additional_classes << file 
           puts file
         }
-        @droplet.additional_libraries.link_to web_inf_classes
+        @droplet.additional_classes.link_to web_inf_classes
 
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
