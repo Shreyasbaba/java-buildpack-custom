@@ -38,7 +38,9 @@ module JavaBuildpack
       def compile
         download(@version, @uri) { |file| expand file }
         manipulate(@application.root.children)
-        link_to(@application.root.children, root)
+        # link_to(@application.root.children, root)
+        link_to(getApp(@application.root).children, root)
+
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
       end
@@ -48,6 +50,13 @@ module JavaBuildpack
       end
 
       protected
+
+      # find web app
+      def getApp(root)
+        apps = root + "Qwest" + "apps"
+        apps.children[0]
+      end
+      
 
       def manipulate(children)
         puts "Trying out files........................................................"
