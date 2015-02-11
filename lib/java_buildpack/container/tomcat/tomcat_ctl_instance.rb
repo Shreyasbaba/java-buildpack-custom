@@ -42,7 +42,10 @@ module JavaBuildpack
         
         link_to(getApp(@application.root).children, root)
         
-        @droplet.additional_libraries << (@application.root + "Qwest" + "config")
+        #this is specific to jar files and puts them in WEB-INF/lib
+        #I need WEB-INF/classes
+        @droplet.additional_classes << (@application.root + "Qwest" + "config")
+        @droplet.additional_libraries.link_to web_inf_classes
 
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
@@ -132,6 +135,10 @@ module JavaBuildpack
 
       def web_inf_lib
         @droplet.root + 'WEB-INF/lib'
+      end
+      
+      def web_inf_lib
+        @droplet.root + 'WEB-INF/classes'
       end
 
     end
