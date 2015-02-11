@@ -138,11 +138,11 @@ module JavaBuildpack
       end
 
       def web_inf_lib
-        @droplet.root + 'WEB-INF/lib'
+        getApp(@droplet.root) + 'WEB-INF/lib'
       end
       
       def web_inf_classes
-        @droplet.root + 'WEB-INF/classes'
+        getApp(@droplet.root) + 'WEB-INF/classes'
       end
 
     end
