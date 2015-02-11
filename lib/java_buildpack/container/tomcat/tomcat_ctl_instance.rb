@@ -44,7 +44,8 @@ module JavaBuildpack
         
         #this is specific to jar files and puts them in WEB-INF/lib
         #I need WEB-INF/classes
-        (@application.root + "Qwest" + "config").children.each { | file | 
+        p = @application.root + "Qwest" + "config"
+        p.children.each { | file | 
           @droplet.additional_classes << file 
           puts file
         }
