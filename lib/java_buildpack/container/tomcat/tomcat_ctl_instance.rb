@@ -137,7 +137,7 @@ module JavaBuildpack
         @droplet.root + 'WEB-INF/lib'
       end
       
-      def web_inf_lib
+      def web_inf_classes
         @droplet.root + 'WEB-INF/classes'
       end
 
