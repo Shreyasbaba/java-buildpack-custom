@@ -50,7 +50,7 @@ module JavaBuildpack
         p = @application.root + "Qwest" + "config"
         p.children.each { | file | @droplet.additional_libraries << file if file.extname == ".jar" }
         
-          @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
+         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
       end
 
