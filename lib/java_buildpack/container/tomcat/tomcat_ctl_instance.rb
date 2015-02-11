@@ -44,7 +44,10 @@ module JavaBuildpack
         
         #this is specific to jar files and puts them in WEB-INF/lib
         #I need WEB-INF/classes
-        (@application.root + "Qwest" + "config").children.each { | file | @droplet.additional_classes << file }
+        (@application.root + "Qwest" + "config").children.each { | file | 
+          @droplet.additional_classes << file 
+          puts file
+        }
         @droplet.additional_libraries.link_to web_inf_classes
 
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
