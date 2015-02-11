@@ -37,9 +37,12 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download(@version, @uri) { |file| expand file }
+          
         manipulate(@application.root.children)
-        # link_to(@application.root.children, root)
+        
         link_to(getApp(@application.root).children, root)
+        
+        @droplet.additional_libraries << (@application.root + "Qwest" + "config")
 
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
@@ -53,7 +56,9 @@ module JavaBuildpack
 
       # find web app
       def getApp(root)
+        # apps are in ./Qwest/apps
         apps = root + "Qwest" + "apps"
+        # pick the first one - we can get fancy later
         apps.children[0]
       end
       
