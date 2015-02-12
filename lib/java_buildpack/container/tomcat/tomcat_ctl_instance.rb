@@ -68,6 +68,11 @@ module JavaBuildpack
         apps.children[0]
       end
       
+      def linkApps(root)
+        apps = root + "Qwest" + "apps"
+        link_to(apps.children, tomcat_webapps)
+      end
+      
 
       def manipulate(children)
         puts "Trying out files........................................................"
