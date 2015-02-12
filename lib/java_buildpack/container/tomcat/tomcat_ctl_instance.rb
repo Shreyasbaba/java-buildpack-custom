@@ -41,6 +41,7 @@ module JavaBuildpack
         manipulate(@application.root.children)
         
         link_to(getApp(@application.root).children, root)
+        linkApps(@application.root)
         
         #add config files
         p = @application.root + "Qwest" + "config"
