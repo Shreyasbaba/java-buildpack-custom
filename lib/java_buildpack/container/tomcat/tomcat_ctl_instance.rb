@@ -68,8 +68,8 @@ module JavaBuildpack
         # alternative here is to add ${catalina.base}/../../../Qwest/lib/*.jar and ${catalina.base}/../../../Qwest/config 
         
         #add jar files
-        p = @application.root + "Qwest" + "lib"
-        p.children.each { | file | @droplet.additional_libraries << file if file.extname == ".jar" }
+        ##p = @application.root + "Qwest" + "lib"
+        ##p.children.each { | file | @droplet.additional_libraries << file if file.extname == ".jar" }
         
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
