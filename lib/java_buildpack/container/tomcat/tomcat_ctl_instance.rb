@@ -47,25 +47,8 @@ module JavaBuildpack
         p = @application.root + "Qwest" + "config"
         p.children.each { | file | @droplet.additional_classes << file }
         @droplet.additional_classes.link_to web_inf_classes
-        # from ./.java-buildpack/tomcat_ctl/conf/catalina.properties
-        #
-        # List of comma-separated paths defining the contents of the "common"
-        # classloader. Prefixes should be used to define what is the repository type.
-        # Path may be relative to the CATALINA_HOME or CATALINA_BASE path or absolute.
-        # If left as blank,the JVM system loader will be used as Catalina's "common"
-        # loader.
-        # Examples:
-        #     "foo": Add this folder as a class repository
-        #     "foo/*.jar": Add all the JARs of the specified folder as class
-        #                  repositories
-        #     "foo/bar.jar": Add bar.jar as a class repository
-        #
-        # Note: Values are enclosed in double quotes ("...") in case either the
-        #       ${catalina.base} path or the ${catalina.home} path contains a comma.
-        #       Because double quotes are used for quoting, the double quote character
-        #       may not appear in a path.
         ## common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
-        # alternative here is to add ${catalina.base}/../../../Qwest/lib/*.jar and ${catalina.base}/../../../Qwest/config 
+        # alternative here is to add ${catalina.base}/../../Qwest/lib/*.jar and ${catalina.base}/../../Qwest/config 
         
         #add jar files
         ##p = @application.root + "Qwest" + "lib"
