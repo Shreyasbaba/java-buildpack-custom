@@ -92,7 +92,7 @@ module JavaBuildpack
           if(file.extname == @ctlenv) 
             puts "rename "
             # http://stackoverflow.com/questions/15000615/changing-file-extension-using-ruby
-            puts "#{File.dirname(file.to_s)}/#{File.basename(file.to_s, '.*')}"
+            File.rename(file.to_s, "#{File.dirname(file.to_s)}/#{File.basename(file.to_s, '.*')}" )
           elsif (@ctlenvs.include? file.extname ) 
             puts "delete "
             File.unlink file
