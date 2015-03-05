@@ -91,8 +91,11 @@ module JavaBuildpack
         children.each { | file | 
           if(file.extname == @ctlenv) 
             puts "rename "
+            # http://stackoverflow.com/questions/15000615/changing-file-extension-using-ruby
+            file.rename "#{File.dirname(file)}/#{File.basename(file, '.*')}"
           elsif (@ctlenvs.include? file.extname ) 
             puts "delete "
+            file.delete
           else 
             puts "leave alone"
           end
