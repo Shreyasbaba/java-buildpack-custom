@@ -33,10 +33,11 @@ module JavaBuildpack
       def initialize(context)
         super(context) { |candidate_version| candidate_version.check_size(3) }
           
-        @ctlenv = ENV['CTLENV']
-        if(@ctlenv.empty?) 
-          @ctlenv = ".dev"
-        end
+        @ctlenv = ENV['CTLENV'] || ".dev"
+        # if I needed dynamic nil check http://stackoverflow.com/questions/7031804/most-elegant-way-to-check-nil-in-ruby
+        #if(@ctlenv.empty?) 
+        #  @ctlenv = ".dev"
+        #end
         @ctlenvs = %w(.dev .int1 .int2 .int3 .itv1 .itv2 .itv3 .e2e .prod)          
       end
 
