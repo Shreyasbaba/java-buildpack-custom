@@ -95,7 +95,7 @@ module JavaBuildpack
             file.rename "#{File.dirname(file)}/#{File.basename(file, '.*')}"
           elsif (@ctlenvs.include? file.extname ) 
             puts "delete "
-            file.delete
+            File.unlink file
           else 
             puts "leave alone"
           end
