@@ -32,6 +32,14 @@ module JavaBuildpack
       # @param [Hash] context a collection of utilities used the component
       def initialize(context)
         super(context) { |candidate_version| candidate_version.check_size(3) }
+          
+        @ctlenv = ENV['CTLENV']
+        if(@ctlenv.empty?) {
+          @ctlenv = ".dev"
+        }
+        @ctlenvs = %w(.dev .int1 .int2 .int3 .itv1 .itv2 .itv3 .e2e .prod)
+          
+        puts @ctlenv
       end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
@@ -83,6 +91,13 @@ module JavaBuildpack
       def manipulate(children)
         puts "Trying out files........................................................"
         children.each { | file | 
+          if(file.extname == @ctlenv) {
+            puts "rename "
+          } else if (@ctlenvs.include? file.extname ) {
+            puts "delete "
+          } else {
+            puts "leave alone"
+          }
           puts file 
           if(file.directory?) 
             manipulate(file.children)
