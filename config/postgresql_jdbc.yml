@@ -15,5 +15,5 @@
 
 # Configuration for the Postgresql JDBC framework
 ---
-version: 2.+
-repository_root: "{ctl.repository.root}/pcf/tibco"
+version: 9.3.+
+repository_root: "{default.repository.root}/postgresql-jdbc"
