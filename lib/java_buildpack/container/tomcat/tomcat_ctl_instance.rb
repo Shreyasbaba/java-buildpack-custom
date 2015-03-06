@@ -61,6 +61,9 @@ module JavaBuildpack
         ##p = @application.root + "Qwest" + "lib"
         ##p.children.each { | file | @droplet.additional_libraries << file if file.extname == ".jar" }
         
+        # tibco 
+        # http://lxomavmtc276.dev.qintra.com:50000/pcf/tibco.zip
+        
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
       end
