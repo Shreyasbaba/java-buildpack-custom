@@ -53,7 +53,5 @@ gemfire_store:
   gemfire_logging_api:
     version: 1.5.8
     repository_root: "{default.repository.root}/slf4j-api"
-tibco_bus:
-  version: 2.+
-  repository_root: "{ctl.repository.root}/tibco"
+
     
