@@ -26,13 +26,13 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
-        download_jar
-        @droplet.additional_libraries << (@droplet.sandbox + jar_name)
+        download_zip
+        #@droplet.additional_libraries << (@droplet.sandbox + jar_name)
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
-        @droplet.additional_libraries << (@droplet.sandbox + jar_name)
+        #@droplet.additional_libraries << (@droplet.sandbox + jar_name)
       end
 
       protected
