@@ -94,14 +94,14 @@ module JavaBuildpack
         puts "Trying out files........................................................"
         children.each { | file | 
           if(file.extname == @ctlenv) 
-            puts "rename "
+            # puts "rename "
             # http://stackoverflow.com/questions/15000615/changing-file-extension-using-ruby
             File.rename(file.to_s, "#{File.dirname(file.to_s)}/#{File.basename(file.to_s, '.*')}" )
           elsif (@ctlenvs.include? file.extname ) 
-            puts "delete "
+            # puts "delete "
             File.unlink file
           else 
-            puts "leave alone"
+            # puts "leave alone"
           end
           puts file 
           if(file.directory?) 
