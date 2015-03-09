@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,6 +37,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download(@version, @uri) { |file| expand file }
+        manipulate(@application.root.children)
         link_to(@application.root.children, root)
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
@@ -47,6 +48,16 @@ module JavaBuildpack
       end
 
       protected
+
+      def manipulate(children)
+        puts "Trying out files........................................................"
+        children.each { | file | 
+          puts file 
+          if(file.directory?) 
+            manipulate(file.children)
+          end
+        }
+      end
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
