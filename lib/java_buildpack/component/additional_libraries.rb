@@ -48,11 +48,8 @@ module JavaBuildpack
       # @param [Pathname] destination the destination to link to
       # @return [Void]
       def link_to(destination)
-        puts "linking to "
-        puts destination
         FileUtils.mkdir_p destination
         each { |path| 
-          puts path
           (destination + path.basename).make_symlink(path.relative_path_from(destination)) 
         }
       end
