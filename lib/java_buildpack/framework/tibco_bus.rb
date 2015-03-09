@@ -39,7 +39,8 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
-        true
+        #true
+        (@application.root + '**' + 'busconnector.xml').glob.any?
       end
 
       private
