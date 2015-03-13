@@ -40,6 +40,7 @@ module JavaBuildpack
       protected
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
+      # test moved files.
       def supports?
         #true
         (@application.root + '**' + 'busconnector.xml').glob.any?
