@@ -21,7 +21,8 @@ require 'java_buildpack/framework'
 module JavaBuildpack
   module Framework
 
-    # Encapsulates the functionality for enabling the Postgres JDBC client.
+    # Encapsulates the functionality for enabling the Tibco JDBC client.
+    # .\tibrvlisten.exe -service 7523 -network ";239.75.2.3" -daemon denvzd.qwest.net:7523 Q.RESED5.test.PCF
     class TibcoBus < JavaBuildpack::Component::VersionedDependencyComponent
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
@@ -42,6 +43,12 @@ module JavaBuildpack
       def supports?
         #true
         (@application.root + '**' + 'busconnector.xml').glob.any?
+      end
+
+      # Resolve the environment that's passed on the command line
+      def resolve_command_environment
+        # set MALLOC_ARENA_MAX by default
+        @default_command_environment['LD_LIBRARY_PATH'] = './.java-buildpack/tibco_bus/lib/linux-i686:./.java-buildpack/tibco_bus/lib/linux-i686/ipm:./.java-buildpack/tibco_bus/lib/linux-x86_64:./.java-buildpack/tibco_bus/lib/linux-x86_64/64:./.java-buildpack/tibco_bus/lib/linux-x86_64/ipm' unless ENV.key? 'LD_LIBRARY_PATH'
       end
 
       private
