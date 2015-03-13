@@ -91,7 +91,6 @@ module JavaBuildpack
       
 
       def manipulate(children)
-        puts "Trying out files........................................................"
         children.each { | file | 
           if(file.extname == @ctlenv) 
             # puts "rename "
