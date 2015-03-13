@@ -43,7 +43,7 @@ module JavaBuildpack
         @component_name = self.class.to_s.space_case
         @configuration  = context[:configuration]
         @droplet        = context[:droplet]
-        @@default_command_environment = {}
+        @default_command_environment = {}
         resolve_command_environment
       end
 
@@ -85,12 +85,12 @@ module JavaBuildpack
       # Build the environment that's passed on the command line
       # @return [String] the environment as key=value string that can be passed to the shell command
       def command_environment
-         @@default_command_environment.collect { |key, value| "#{key}=#{value.to_s.shellescape}" }.join(' ')
+         @default_command_environment.collect { |key, value| "#{key}=#{value.to_s.shellescape}" }.join(' ')
       end
       
       # Resolve the environment that's passed on the command line
       def resolve_command_environment
-        # @default_command_environment['LD_LIBRARY_PATH'] = './.java-buildpack/tibco_bus/lib/lib/linux-i686:./.java-buildpack/tibco_bus/lib/lib/linux-i686/ipm:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64/64:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64/ipm' unless ENV.key? 'LD_LIBRARY_PATH'
+        @default_command_environment['LD_LIBRARY_PATH'] = './.java-buildpack/tibco_bus/lib/lib/linux-i686:./.java-buildpack/tibco_bus/lib/lib/linux-i686/ipm:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64/64:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64/ipm' unless ENV.key? 'LD_LIBRARY_PATH'
       end
 
       protected
