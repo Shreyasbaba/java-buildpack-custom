@@ -59,7 +59,7 @@ module JavaBuildpack
 
       private
 
-      def ews_tar?
+      def eap_zip?
         (@application.root + 'deployments').exist?
       end
 
