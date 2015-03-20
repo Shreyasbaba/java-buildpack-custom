@@ -124,7 +124,7 @@ module JavaBuildpack
       def expand(file)
         with_timing "Expanding EAP to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
-          shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
+          shell "unzip #{file.path} -d #{@droplet.sandbox}  2>&1"
 
           @droplet.copy_resources
         end
