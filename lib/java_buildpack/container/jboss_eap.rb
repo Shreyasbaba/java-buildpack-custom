@@ -42,7 +42,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
       def sub_components(context)
         [
-          EapCtlInstance.new(sub_configuration_context(context, 'jboss')),
+          EapCtlInstance.new(sub_configuration_context(context, 'jboss_eap')),
           #TomcatLifecycleSupport.new(sub_configuration_context(context, 'lifecycle_support')),
           #TomcatLoggingSupport.new(sub_configuration_context(context, 'logging_support')),
           #TomcatAccessLoggingSupport.new(sub_configuration_context(context, 'access_logging_support')),
