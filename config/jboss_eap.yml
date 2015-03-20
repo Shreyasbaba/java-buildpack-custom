@@ -12,7 +12,44 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-
 ---
-version: 6.3.+
-repository_root: "http://151.117.209.161/pcf/eap"
+jboss_eap:
+  version: 6.3.+
+  repository_root: "http://151.117.209.161/pcf/eap"
+lifecycle_support:
+  version: 2.+
+  repository_root: "{default.repository.root}/tomcat-lifecycle-support"
+logging_support:
+  version: 2.+
+  repository_root: "{default.repository.root}/tomcat-logging-support"
+access_logging_support:
+  version: 2.+
+  repository_root: "{default.repository.root}/tomcat-access-logging-support"
+  access_logging: disabled
+redis_store:
+  version: 1.+
+  repository_root: "{default.repository.root}/redis-store"
+  database: 0
+  timeout: 2000
+  connection_pool_size: 2
+gemfire_store:
+  gemfire:
+    version: 8.0.+
+    repository_root: "{default.repository.root}/gem-fire"
+  gemfire_modules:
+    version: 8.0.+
+    repository_root: "{default.repository.root}/gem-fire-modules"
+  gemfire_modules_tomcat7:
+    version: 8.0.+
+    repository_root: "{default.repository.root}/gem-fire-modules-tomcat7"
+  gemfire_security:
+    version: 8.0.+
+    repository_root: "{default.repository.root}/gem-fire-security"
+  gemfire_logging:
+    version: 1.5.8
+    repository_root: "{default.repository.root}/slf4j-jdk14"
+  gemfire_logging_api:
+    version: 1.5.8
+    repository_root: "{default.repository.root}/slf4j-api"
+
+ 
