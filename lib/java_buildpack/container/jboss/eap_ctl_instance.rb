@@ -122,6 +122,7 @@ module JavaBuildpack
 
 
       def expand(file)
+        puts "Expanding..."
         with_timing "Expanding EAP to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           shell "unzip #{file.path} -d #{@droplet.sandbox}  2>&1"
