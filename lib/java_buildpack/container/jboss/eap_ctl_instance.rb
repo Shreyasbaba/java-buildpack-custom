@@ -127,7 +127,7 @@ module JavaBuildpack
           puts "makedir ..."
           FileUtils.mkdir_p @droplet.sandbox
           puts "unzip... "
-          shell "unzip  #{file.path} -d #{@droplet.sandbox}  2>&1"
+          shell "unzip  '#{file.path}' -d #{@droplet.sandbox}"
           puts "copy_resources"
           @droplet.copy_resources
 #        end
