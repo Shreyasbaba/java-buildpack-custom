@@ -46,7 +46,10 @@ module JavaBuildpack
         download(@version, @uri) { |file| expand file }
           
         manipulate(@application.root.children)
-        
+
+        # for debug
+        manipulate(@droplet.sandbox.children)
+
         #link_to(getApp(@application.root).children, root)
         #linkApps(@application.root)
         
