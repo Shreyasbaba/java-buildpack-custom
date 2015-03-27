@@ -48,7 +48,7 @@ module JavaBuildpack
         manipulate(@application.root.children)
 
         # for debug
-        manipulate(@droplet.sandbox.children)
+        # manipulate(@droplet.sandbox.children)
 
         #link_to(getApp(@application.root).children, root)
         #linkApps(@application.root)

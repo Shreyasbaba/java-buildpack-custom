@@ -60,7 +60,7 @@
             </handlers>
             <logger log-boot="true" log-read-only="false" enabled="false">
                 <handlers>
-                    <handler name="console"/>
+                    <handler name="CONSOLE"/>
                 </handlers>
             </logger>
         </audit-log>
