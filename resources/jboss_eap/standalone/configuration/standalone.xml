@@ -60,7 +60,7 @@
             </handlers>
             <logger log-boot="true" log-read-only="false" enabled="false">
                 <handlers>
-                    <handler name="file"/>
+                    <handler name="console"/>
                 </handlers>
             </logger>
         </audit-log>
@@ -143,9 +143,9 @@
             <deployment-scanner path="deployments" relative-to="jboss.server.base.dir" scan-interval="5000"/>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ee:1.2">
-            <spec-descriptor-property-replacement>false</spec-descriptor-property-replacement>
+            <spec-descriptor-property-replacement>true</spec-descriptor-property-replacement>
             <jboss-descriptor-property-replacement>true</jboss-descriptor-property-replacement>
-            <annotation-property-replacement>false</annotation-property-replacement>
+            <annotation-property-replacement>true</annotation-property-replacement>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:ejb3:1.4">
             <session-bean>
