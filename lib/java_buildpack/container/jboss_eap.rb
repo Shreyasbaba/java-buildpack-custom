@@ -29,7 +29,6 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::ModularComponent#command)
       def command
         @droplet.java_opts.add_system_property 'http.port', '$PORT'
-        update_configuration
         
         [
           @droplet.java_home.as_env_var,
@@ -64,18 +63,6 @@ module JavaBuildpack
         (@application.root + 'deployments').exist?
       end
 
-    end
-
-    def update_configuration
-      standalone_config = @droplet.sandbox + 'standalone/configuration/standalone.xml'
-
-      modified = standalone_config.read.
-        gsub(/<socket-binding name="http" port="8080"\/>/,
-            '<socket-binding name="http" port="${http.port}"/>')
-#                   .gsub(/<virtual-server name="default-host" enable-welcome-root="true">/,
-#                         '<virtual-server name="default-host" enable-welcome-root="false">')
-
-      standalone_config.open('w') { |f| f.write modified }
     end
 
   end
