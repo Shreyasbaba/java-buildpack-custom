@@ -38,7 +38,7 @@ module JavaBuildpack
         #if(@ctlenv.empty?) 
         #  @ctlenv = ".dev"
         #end
-        @ctlenvs = %w(.dev .int1 .int2 .int3 .test1 .test2 .test3 .e2e .prod)          
+        @ctlenvs = %w(.dev .int .int1 .int2 .int3 .test1 .test2 .test3 .e2e .prod)          
       end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
