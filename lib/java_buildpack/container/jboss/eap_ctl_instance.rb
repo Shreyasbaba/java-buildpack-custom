@@ -142,7 +142,7 @@ module JavaBuildpack
         file.children.each { | deployment | 
           dir, base = deployment.split
           touch = base.to_s + ".dodeploy"
-          touch = file + touch
+          touch = @droplet.sandbox + "standalone" + "deployments" + touch
           puts "Marking for deployment - #{touch}" 
           File.open(touch.to_s, 'a')
         }
