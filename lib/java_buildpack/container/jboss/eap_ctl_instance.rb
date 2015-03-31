@@ -142,8 +142,9 @@ module JavaBuildpack
         file.children.each { | deployment | 
           dir, base = deployment.split
           touch = base.to_s + ".dodeploy"
+          touch = file + touch
           puts "Marking for deployment - #{touch}" 
-          FileUtils.touch(file + touch)
+          FileUtils.touch(touch)
         }
         rescue
           puts "No deploy "
