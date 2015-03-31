@@ -47,7 +47,7 @@ module JavaBuildpack
           
         manipulate(@application.root.children)
         
-        deploy @droplet.sandbox + "deployments"
+        deploy @droplet.sandbox + "standalone" + "deployments"
 
         # for debug
         # manipulate(@droplet.sandbox.children)
@@ -143,7 +143,7 @@ module JavaBuildpack
           FileUtils.touch(file + (base.to_s + ".dodeploy"))
         }
         rescue
-          puts "No deploy " + $!
+          puts "No deploy "
         end
       end
 
