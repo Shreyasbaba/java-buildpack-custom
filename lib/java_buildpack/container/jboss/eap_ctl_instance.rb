@@ -47,8 +47,10 @@ module JavaBuildpack
           
         manipulate(@application.root.children)
         
-        deploy @droplet.sandbox + "standalone" + "deployments"
+        deploy @application.root + "deployments"
+        linkApps(@application.root)
 
+        
         # for debug
         # manipulate(@droplet.sandbox.children)
 
@@ -90,8 +92,8 @@ module JavaBuildpack
       end
       
       def linkApps(root)
-        apps = root + "Qwest" + "apps"
-        link_to(apps.children, tomcat_webapps)
+        apps = root + "deployments"
+        link_to(apps.children, @droplet.sandbox + "standalone" + "deployments")
       end
       
 
