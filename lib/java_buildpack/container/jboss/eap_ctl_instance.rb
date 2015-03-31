@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+require 'file'
 require 'fileutils'
 require 'java_buildpack/component/versioned_dependency_component'
 require 'java_buildpack/container'
@@ -144,7 +145,7 @@ module JavaBuildpack
           touch = base.to_s + ".dodeploy"
           touch = file + touch
           puts "Marking for deployment - #{touch}" 
-          FileUtils.touch(touch)
+          File.open(touch.to_s, 'a')
         }
         rescue
           puts "No deploy "
