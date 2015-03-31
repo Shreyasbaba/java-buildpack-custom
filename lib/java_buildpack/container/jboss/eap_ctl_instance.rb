@@ -135,12 +135,16 @@ module JavaBuildpack
       end
 
       def deploy(file)
+        begin
         puts "Deploying in #{file}" 
         file.children.each { | deployment | 
           dir, base = deployment.split
           puts "Marking for deployment - #{base}" 
           FileUtils.touch(file + (base.to_s + ".dodeploy"))
         }
+        rescue
+          puts "No deploy " + $!
+        end
       end
 
     end
