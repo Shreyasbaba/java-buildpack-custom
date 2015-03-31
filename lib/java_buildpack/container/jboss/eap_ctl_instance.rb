@@ -46,6 +46,8 @@ module JavaBuildpack
         download(@version, @uri) { |file| expand file }
           
         manipulate(@application.root.children)
+        
+        deploy @droplet.sandbox + "deployments"
 
         # for debug
         # manipulate(@droplet.sandbox.children)
@@ -132,6 +134,14 @@ module JavaBuildpack
         end
       end
 
+      def deploy(file)
+        puts "Deploying in " + file
+        file.children.each { | deployment | 
+          dir, base = deployment.split
+          puts "Marking for deployment - " + base
+          FileUtils.touch(file + (base.to_s + ".dodeploy"))
+        }
+      end
 
     end
 
