@@ -22,13 +22,15 @@ module JavaBuildpack
   module Container
 
     # Encapsulates the detect, compile, and release functionality for Tomcat lifecycle support.
-    class TomcatLifecycleSupport < JavaBuildpack::Component::VersionedDependencyComponent
+    class EapModules < JavaBuildpack::Component::VersionedDependencyComponent
       include JavaBuildpack::Container
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
+        puts "Downloading modules tar file?"
         download_tar
-      end
+        puts "Downloading modules tar file?"
+     end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
