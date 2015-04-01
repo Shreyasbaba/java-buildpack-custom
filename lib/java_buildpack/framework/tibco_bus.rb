@@ -43,7 +43,6 @@ module JavaBuildpack
       # test moved files.
       def supports?
         #true
-        puts "checking tibco"
         (@application.root + '**' + 'busconnector.xml*').glob.any?
       end
 
