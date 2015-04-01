@@ -17,6 +17,7 @@
 require 'java_buildpack/component/modular_component'
 require 'java_buildpack/container'
 require 'java_buildpack/container/jboss/eap_ctl_instance'
+require 'java_buildpack/container/jboss/eap_modules'
 
 module JavaBuildpack
   module Container
@@ -41,7 +42,8 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
       def sub_components(context)
         [
-          EapCtlInstance.new(sub_configuration_context(context, 'jboss_eap'))
+          EapCtlInstance.new(sub_configuration_context(context, 'jboss_eap')),
+          EapModules.new(sub_configuration_context(context, 'eap_modules'))
           #,
           #TomcatLifecycleSupport.new(sub_configuration_context(context, 'lifecycle_support')),
           #TomcatLoggingSupport.new(sub_configuration_context(context, 'logging_support')),
