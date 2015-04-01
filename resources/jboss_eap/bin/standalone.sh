@@ -258,11 +258,9 @@ if [ "$PRESERVE_JAVA_OPTS" != "true" ]; then
 fi
 
 if [ "x$JBOSS_MODULEPATH" = "x" ]; then
-    JBOSS_MODULEPATH="$JBOSS_HOME/modules:$JBOSS_HOME/../../modules"
+    JBOSS_MODULEPATH="$JBOSS_HOME/modules:$JBOSS_HOME/foss_modules:$JBOSS_HOME/../../modules"
 fi
 
-#JHL debug
-ls "$JBOSS_HOME/../../modules"
 
 # Display our environment
 echo "========================================================================="

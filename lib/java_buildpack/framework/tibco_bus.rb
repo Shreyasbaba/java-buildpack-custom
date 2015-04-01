@@ -43,7 +43,8 @@ module JavaBuildpack
       # test moved files.
       def supports?
         #true
-        (@application.root + '**' + 'busconnector.xml').glob.any?
+        puts "checking tibco"
+        (@application.root + '**' + 'busconnector.xml*').glob.any?
       end
 
       # Resolve the environment that's passed on the command line - seems to only work in base component
