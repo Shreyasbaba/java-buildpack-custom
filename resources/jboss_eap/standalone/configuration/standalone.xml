@@ -82,17 +82,9 @@
             <console-handler name="CONSOLE">
                 <level name="INFO"/>
                 <formatter>
-                    <named-formatter name="COLOR-PATTERN"/>
-                </formatter>
-            </console-handler>
-            <periodic-rotating-file-handler name="FILE" autoflush="true">
-                <formatter>
                     <named-formatter name="PATTERN"/>
                 </formatter>
-                <file relative-to="jboss.server.log.dir" path="server.log"/>
-                <suffix value=".yyyy-MM-dd"/>
-                <append value="true"/>
-            </periodic-rotating-file-handler>
+            </console-handler>
             <logger category="com.arjuna">
                 <level name="WARN"/>
             </logger>
@@ -105,24 +97,14 @@
             <logger category="sun.rmi">
                 <level name="WARN"/>
             </logger>
-            <logger category="jacorb">
-                <level name="WARN"/>
-            </logger>
-            <logger category="jacorb.config">
-                <level name="ERROR"/>
-            </logger>
             <root-logger>
                 <level name="DEBUG"/>
                 <handlers>
                     <handler name="CONSOLE"/>
-                    <handler name="FILE"/>
                 </handlers>
             </root-logger>
             <formatter name="PATTERN">
                 <pattern-formatter pattern="%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
-            </formatter>
-            <formatter name="COLOR-PATTERN">
-                <pattern-formatter pattern="%K{level}%d{HH:mm:ss,SSS} %-5p [%c] (%t) %s%E%n"/>
             </formatter>
         </subsystem>
         <subsystem xmlns="urn:jboss:domain:datasources:1.2">
@@ -314,14 +296,6 @@
         </interface>
         <interface name="public">
             <inet-address value="${jboss.bind.address:127.0.0.1}"/>
-        </interface>
-        <!-- TODO - only show this if the jacorb subsystem is added  -->
-        <interface name="unsecure">
-            <!--
-              ~  Used for IIOP sockets in the standard configuration.
-              ~                  To secure JacORB you need to setup SSL 
-              -->
-            <inet-address value="${jboss.bind.address.unsecure:127.0.0.1}"/>
         </interface>
     </interfaces>
     <socket-binding-group name="standard-sockets" default-interface="public" port-offset="${jboss.socket.binding.port-offset:0}">
