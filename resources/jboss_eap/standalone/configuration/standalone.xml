@@ -144,6 +144,10 @@
                 <stateful default-access-timeout="5000" cache-ref="simple"/>
                 <singleton default-access-timeout="5000"/>
             </session-bean>
+            <mdb>
+                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:hornetq-ra}"/>
+                <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
+            </mdb>
             <pools>
                 <bean-instance-pools>
                     <strict-max-pool name="slsb-strict-max-pool" max-pool-size="20" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
@@ -170,6 +174,7 @@
                     <keepalive-time time="100" unit="milliseconds"/>
                 </thread-pool>
             </thread-pools>
+            <iiop enable-by-default="false" use-qualified-name="false"/>
             <default-security-domain value="other"/>
             <default-missing-method-permissions-deny-access value="true"/>
         </subsystem>
