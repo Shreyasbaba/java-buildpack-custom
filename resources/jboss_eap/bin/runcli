@@ -5,7 +5,7 @@
 JAVA_HOME=/tmp/staged/app/.java-buildpack/open_jdk_jre
 export JAVA_HOME
 
-/tmp/staged/app/.java-buildpack/jboss_eap/standalone.sh --admin-only 2>&1 &
+/tmp/staged/app/.java-buildpack/jboss_eap/bin/standalone.sh --admin-only 2>&1 &
 ps -ef 
 
 sleep 30
