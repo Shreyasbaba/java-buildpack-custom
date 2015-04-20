@@ -2,6 +2,11 @@
 
 #cli=`find /tmp -name jboss-cli.sh`
 
+/tmp/staged/app/.java-buildpack/jboss_eap/standalone.sh --admin-only 2>&1 &
+ps -ef 
+
+sleep 30
+
 ps -ef 
 
 find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | /bin/sh -xvs
