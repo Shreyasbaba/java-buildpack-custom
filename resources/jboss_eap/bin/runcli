@@ -4,3 +4,4 @@
 
 find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | bash
 
+exit 0
