@@ -1,0 +1,6 @@
+#!/bin/bash -x
+
+cli=`find /tmp -name jboss-cli.sh`
+
+find /tmp -name '*.cli -exec echo $cli -c --file={} \; | sort | bash
+
