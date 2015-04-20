@@ -154,9 +154,9 @@ module JavaBuildpack
       end
 
       def cli
-         shell  "#{(@droplet.sandbox + 'bin/standalone.sh')} -b=0.0.0.0 --admin-only &"
+         shell  "#{(@droplet.sandbox + 'bin/standalone.sh')} -b=0.0.0.0 --admin-only 2>&1 &"
          shell  "sleep 60"
-         shell  "#{(@droplet.sandbox + 'bin/runcli')}"
+         shell  "#{(@droplet.sandbox + 'bin/runcli')} 2>&1"
       end
     end
 
