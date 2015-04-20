@@ -1,7 +1,7 @@
-#!/bin/sh -x -v -s
+#!/bin/sh -xv
 
 #cli=`find /tmp -name jboss-cli.sh`
 
-find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | /bin/sh -x -v -s
+find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | /bin/sh -xvs
 
 exit 0
