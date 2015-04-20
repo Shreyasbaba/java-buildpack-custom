@@ -43,7 +43,8 @@ module JavaBuildpack
       def sub_components(context)
         [
           EapCtlInstance.new(sub_configuration_context(context, 'jboss_eap')),
-          EapModules.new(sub_configuration_context(context, 'eap_modules'))
+          EapModules.new(sub_configuration_context(context, 'eap_modules')),
+          EapCli.new(sub_configuration_context(context, 'eap_cli'))
           #,
           #TomcatLifecycleSupport.new(sub_configuration_context(context, 'lifecycle_support')),
           #TomcatLoggingSupport.new(sub_configuration_context(context, 'logging_support')),

@@ -50,9 +50,7 @@ module JavaBuildpack
         deploy @application.root + "deployments"
         linkApps(@application.root)
         
-        cli
-
-        
+       
         # for debug
         # manipulate(@droplet.sandbox.children)
 
@@ -153,11 +151,6 @@ module JavaBuildpack
         end
       end
 
-      def cli
-         #shell  "#{(@droplet.sandbox + 'bin/standalone.sh')} -b=0.0.0.0 --admin-only 2>&1 &"
-         #shell  "sleep 60"
-         shell  "#{(@droplet.sandbox + 'bin/runcli')} 2>&1"
-      end
     end
 
   end
