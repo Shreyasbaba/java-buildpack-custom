@@ -35,6 +35,10 @@ module JavaBuildpack
             puts "STDERR: #{stderr.gets}"
 
             fail
+          else
+            puts "\nCommand '#{command}' has completed"
+                        puts "STDOUT: #{stdout.gets}"
+                        puts "STDERR: #{stderr.gets}"
           end
         end
       end
