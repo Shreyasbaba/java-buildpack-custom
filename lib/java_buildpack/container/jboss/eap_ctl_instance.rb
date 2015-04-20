@@ -154,9 +154,9 @@ module JavaBuildpack
       end
 
       def cli
-         shell  "$PWD/#{(@droplet.sandbox + 'bin/standalone.sh')} -b=0.0.0.0 --admin-only"
+         shell  "#{(@droplet.sandbox + 'bin/standalone.sh')} -b=0.0.0.0 --admin-only &"
          shell  "sleep 60"
-         shell  "find $PWD -name '*.cli' -exec echo jboss-cli.sh -c --file={} \; | sort | bash"
+         shell  "find / -name '*.cli' -exec echo jboss-cli.sh -c --file={} \; | sort | bash"
       end
     end
 
