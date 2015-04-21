@@ -28,6 +28,9 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       # this must be after extract
       def compile
+        # may add download of standard scripts here:
+        
+        # apply application scripts
         shell  "#{(@droplet.sandbox + 'bin/runcli')} 2>&1"
      end
 
