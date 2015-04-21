@@ -1,4 +1,4 @@
-#!/bin/sh -xv
+#!/bin/sh -x
 
 #cli=`find /tmp -name jboss-cli.sh`
 
@@ -7,8 +7,8 @@ export JAVA_HOME
 
 /tmp/staged/app/.java-buildpack/jboss_eap/bin/standalone.sh --admin-only >/dev/null 2>&1 &
 
-jboss_proxy_host=`echo $VCAP_APPLICATION | perl -pe 's/.*"uris":\["//; s/".*$//'`
-
+#jboss_proxy_host=`echo $VCAP_APPLICATION | perl -pe 's/.*"uris":\["//; s/".*$//'`
+jboss_proxy_host=acme.pcfstrd.dev.intranet
 
 until /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --command=ls 2>/dev/null | grep 'server-state=running'
 do
@@ -16,7 +16,7 @@ do
   echo starting...
 done
 
-/tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --command=/subsystem=webservices/:write-attribute(name=wsdl-host,value=\"${jboss.proxy.host}\")
+/tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --command=/subsystem=webservices/:write-attribute(name=wsdl-host,value=\"acme.pcfstrd.dev.intranet\")
 
 find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | /bin/sh -xvs
 
