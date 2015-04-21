@@ -16,7 +16,7 @@ do
   echo starting...
 done
 
-/tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --command=/subsystem=webservices/:write-attribute(name=wsdl-host,value=\"acme.pcfstrd.dev.intranet\")
+/tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c '--command=/subsystem=webservices/:write-attribute(name=wsdl-host,value="acme.pcfstrd.dev.intranet")'
 
 find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | /bin/sh -xvs
 
