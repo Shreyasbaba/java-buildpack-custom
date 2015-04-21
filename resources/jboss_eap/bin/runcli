@@ -7,7 +7,7 @@ export JAVA_HOME
 
 /tmp/staged/app/.java-buildpack/jboss_eap/bin/standalone.sh --admin-only >/dev/null 2>&1 &
 
-until /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --command=ls | grep 'server-state=running'
+until /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --command=ls 2>/dev/null | grep 'server-state=running'
 do
   sleep 1
   echo starting...
