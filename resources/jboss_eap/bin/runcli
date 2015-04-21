@@ -1,4 +1,4 @@
-#!/bin/sh -xv
+#!/bin/sh
 
 #cli=`find /tmp -name jboss-cli.sh`
 
