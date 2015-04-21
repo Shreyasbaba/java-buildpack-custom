@@ -7,8 +7,8 @@ export JAVA_HOME
 
 /tmp/staged/app/.java-buildpack/jboss_eap/bin/standalone.sh --admin-only >/dev/null 2>&1 &
 
-#jboss_proxy_host=`echo $VCAP_APPLICATION | perl -pe 's/.*"uris":\["//; s/".*$//'`
-jboss_proxy_host=acme.pcfstrd.dev.intranet
+jboss_proxy_host=`echo $VCAP_APPLICATION | perl -pe 's/.*"uris":\["//; s/".*$//'`
+#jboss_proxy_host=acme.pcfstrd.dev.intranet
 
 echo jboss proxy host $jboss_proxy_host
 
@@ -18,7 +18,7 @@ do
   echo starting...
 done
 
-/tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c '--command=/subsystem=webservices/:write-attribute(name=wsdl-host,value="$jboss_proxy_host")'
+/tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c "--command=/subsystem=webservices/:write-attribute(name=wsdl-host,value=\"$jboss_proxy_host\")"
 
 find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | /bin/sh -xvs
 
