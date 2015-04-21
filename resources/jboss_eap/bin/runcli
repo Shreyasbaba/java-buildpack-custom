@@ -6,11 +6,13 @@ JAVA_HOME=/tmp/staged/app/.java-buildpack/open_jdk_jre
 export JAVA_HOME
 
 /tmp/staged/app/.java-buildpack/jboss_eap/bin/standalone.sh --admin-only >/dev/null 2>&1 &
-ps -ef 
 
-sleep 30
+until /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --command=ls | grep 'server-state=running'
+do
+  sleep 1
+  echo starting...
+done
 
-ps -ef 
 
 find /tmp -name '*.cli' -exec echo /tmp/staged/app/.java-buildpack/jboss_eap/bin/jboss-cli.sh -c --file={} \; | sort | /bin/sh -xvs
 
