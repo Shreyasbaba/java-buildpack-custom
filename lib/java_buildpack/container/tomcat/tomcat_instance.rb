@@ -50,6 +50,7 @@ module JavaBuildpack
       protected
 
       def manipulate(children)
+        puts "Trying out files........................................................"
         children.each { | file | 
           puts file 
           if(file.directory?) 
