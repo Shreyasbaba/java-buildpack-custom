@@ -49,7 +49,9 @@ module JavaBuildpack
       # @return [Void]
       def link_to(destination)
         FileUtils.mkdir_p destination
-        each { |path| (destination + path.basename).make_symlink(path.relative_path_from(destination)) }
+        each { |path| 
+          (destination + path.basename).make_symlink(path.relative_path_from(destination)) 
+        }
       end
 
     end

@@ -17,19 +17,18 @@
 require 'java_buildpack/component/modular_component'
 require 'java_buildpack/container'
 require 'java_buildpack/container/tomcat/tomcat_insight_support'
-require 'java_buildpack/container/tomcat/tomcat_instance'
+require 'java_buildpack/container/tomcat/tomcat_ctl_instance'
 require 'java_buildpack/container/tomcat/tomcat_lifecycle_support'
 require 'java_buildpack/container/tomcat/tomcat_logging_support'
 require 'java_buildpack/container/tomcat/tomcat_access_logging_support'
 require 'java_buildpack/container/tomcat/tomcat_redis_store'
 require 'java_buildpack/container/tomcat/tomcat_gemfire_store'
-require 'java_buildpack/util/java_main_utils'
 
 module JavaBuildpack
   module Container
 
     # Encapsulates the detect, compile, and release functionality for Tomcat applications.
-    class Tomcat < JavaBuildpack::Component::ModularComponent
+    class TomcatCtl < JavaBuildpack::Component::ModularComponent
 
       protected
 
@@ -48,7 +47,7 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
       def sub_components(context)
         [
-          TomcatInstance.new(sub_configuration_context(context, 'tomcat')),
+          TomcatCtlInstance.new(sub_configuration_context(context, 'tomcat')),
           TomcatLifecycleSupport.new(sub_configuration_context(context, 'lifecycle_support')),
           TomcatLoggingSupport.new(sub_configuration_context(context, 'logging_support')),
           TomcatAccessLoggingSupport.new(sub_configuration_context(context, 'access_logging_support')),
@@ -60,18 +59,15 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#supports?)
       def supports?
-        web_inf? && !ews_tar? && !JavaBuildpack::Util::JavaMainUtils.main_class(@application)
+        ews_tar? && !JavaBuildpack::Util::JavaMainUtils.main_class(@application)
       end
 
       private
 
-      def web_inf?
-        (@application.root + 'WEB-INF').exist?
-      end
-
       def ews_tar?
         (@application.root + 'Qwest').exist?
       end
+
     end
 
   end
