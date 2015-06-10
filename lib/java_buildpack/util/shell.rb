@@ -36,7 +36,7 @@ module JavaBuildpack
 
             fail
           else
-            puts "\nCommand '#{command}' has completed"
+            puts "\nCommand '#{args.join ' '}' has completed"
             until (raw_line = stdout.gets).nil? do
               puts "STDOUT: #{raw_line}"                      
             end
