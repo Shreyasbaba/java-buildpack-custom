@@ -1,5 +1,5 @@
 # Cloud Foundry Java Buildpack
-# Copyright (c) 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ containers:
   - "JavaBuildpack::Container::SpringBootCLI"
   - "JavaBuildpack::Container::Tomcat"
   - "JavaBuildpack::Container::TomcatCtl"
+  - "JavaBuildpack::Container::JbossEap"
 
 # In order to use Oracle JREs instead of OpenJDK, you must comment out the OpenJDK line and uncomment the Oracle line.
 # Please see the documentation for more detail.
@@ -34,7 +35,10 @@ jres:
 
 frameworks:
   - "JavaBuildpack::Framework::AppDynamicsAgent"
+# - "JavaBuildpack::Framework::IntroscopeAgent"
+# - "JavaBuildpack::Framework::DynaTraceAgent"
   - "JavaBuildpack::Framework::JavaOpts"
+  - "JavaBuildpack::Framework::JrebelAgent"
   - "JavaBuildpack::Framework::MariaDbJDBC"
   - "JavaBuildpack::Framework::NewRelicAgent"
   - "JavaBuildpack::Framework::PlayFrameworkAutoReconfiguration"
@@ -42,3 +46,4 @@ frameworks:
   - "JavaBuildpack::Framework::PostgresqlJDBC"
   - "JavaBuildpack::Framework::SpringAutoReconfiguration"
   - "JavaBuildpack::Framework::SpringInsight"
+  - "JavaBuildpack::Framework::TibcoBus"

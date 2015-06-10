@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -48,11 +48,8 @@ module JavaBuildpack
       # @param [Pathname] destination the destination to link to
       # @return [Void]
       def link_to(destination)
-        puts "linking to "
-        puts destination
         FileUtils.mkdir_p destination
         each { |path| 
-          puts path
           (destination + path.basename).make_symlink(path.relative_path_from(destination)) 
         }
       end

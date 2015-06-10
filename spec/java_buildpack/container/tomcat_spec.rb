@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -83,7 +83,6 @@ describe JavaBuildpack::Container::Tomcat do
   end
 
   it 'returns command' do
-
     expect(component.command).to eq("#{java_home.as_env_var} JAVA_OPTS=\"test-opt-2 test-opt-1 -Dhttp.port=$PORT\" " \
                                       '$PWD/.java-buildpack/tomcat/bin/catalina.sh run')
   end

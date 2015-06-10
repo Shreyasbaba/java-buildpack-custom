@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ require 'java_buildpack/container/tomcat/tomcat_logging_support'
 require 'java_buildpack/container/tomcat/tomcat_access_logging_support'
 require 'java_buildpack/container/tomcat/tomcat_redis_store'
 require 'java_buildpack/container/tomcat/tomcat_gemfire_store'
+require 'java_buildpack/util/java_main_utils'
 
 module JavaBuildpack
   module Container

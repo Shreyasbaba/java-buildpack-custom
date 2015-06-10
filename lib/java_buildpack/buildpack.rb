@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -72,14 +72,15 @@ module JavaBuildpack
       container = component_detection('container', @containers, true).first
       fail 'No container can run this application' unless container
 
-      component_detection('JRE', @jres, true).first.release
-      component_detection('framework', @frameworks, false).each(&:release)
-      command = container.release
+      commands = []
+      commands << component_detection('JRE', @jres, true).first.release
+      component_detection('framework', @frameworks, false).map(&:release)
+      commands << container.release
 
       payload = {
         'addons'                => [],
         'config_vars'           => {},
-        'default_process_types' => { 'web' => command }
+        'default_process_types' => { 'web' => commands.flatten.compact.join(' && ') }
       }.to_yaml
 
       @logger.debug { "Release Payload:\n#{payload}" }

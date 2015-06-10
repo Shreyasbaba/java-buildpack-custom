@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013 the original author or authors.
+# Copyright 2013-2015 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,9 +37,9 @@ module JavaBuildpack
           .add_javaagent(@droplet.sandbox + jar_name)
           .add_system_property('newrelic.home', @droplet.sandbox)
           .add_system_property('newrelic.config.license_key', license_key)
-          .add_system_property('newrelic.config.app_name', "'#{application_name}'")
+          .add_system_property('newrelic.config.app_name', "#{application_name}")
           .add_system_property('newrelic.config.log_file_path', logs_dir)
-        @droplet.java_opts.add_system_property('newrelic.enable.java.8', 'true') if java_8?
+        @droplet.java_opts.add_system_property('newrelic.enable.java.8', 'true') if @droplet.java_home.java_8_or_later?
       end
 
       protected
@@ -54,10 +54,6 @@ module JavaBuildpack
       FILTER = /newrelic/.freeze
 
       private_constant :FILTER
-
-      def java_8?
-        @droplet.java_home.version[1] == '8'
-      end
 
       def application_name
         @application.details['application_name']
