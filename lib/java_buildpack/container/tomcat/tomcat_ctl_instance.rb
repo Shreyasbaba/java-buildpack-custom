@@ -53,7 +53,6 @@ module JavaBuildpack
         #add config files
         p = @application.root + "Qwest" + "config"
         p.children.each { | file | @droplet.additional_classes << file }
-        @droplet.additional_classes.link_to web_inf_classes
         ## common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
         # alternative here is to add ${catalina.base}/../../Qwest/lib/*.jar and ${catalina.base}/../../Qwest/config 
         
@@ -65,7 +64,6 @@ module JavaBuildpack
         # http://lxomavmtc276.dev.qintra.com/pcf/tibco/tibco.zip
         
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
-        @droplet.additional_libraries.link_to web_inf_lib
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
@@ -74,16 +72,6 @@ module JavaBuildpack
 
       protected
 
-      # find web app
-      def getApp(root)
-        # apps are in ./Qwest/apps
-        apps = root + "Qwest" + "apps"
-        # pick the first one - we can get fancy later
-        # please note, the same app will also be linked in under it's name via symbolic link
-        # i.e. deployed twice
-        apps.children[0]
-      end
-      
       def linkApps(root)
         apps = root + "Qwest" + "apps"
         link_to(apps.children, tomcat_webapps)
@@ -164,14 +152,6 @@ module JavaBuildpack
 
       def tomcat_datasource_jar
         tomcat_lib + 'tomcat-jdbc.jar'
-      end
-
-      def web_inf_lib
-        getApp(@droplet.root) + 'WEB-INF/lib'
-      end
-      
-      def web_inf_classes
-        getApp(@droplet.root) + 'WEB-INF/classes'
       end
 
     end
