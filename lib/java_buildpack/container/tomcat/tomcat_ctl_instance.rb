@@ -62,6 +62,9 @@ module JavaBuildpack
         # tibco 
         # http://lxomavmtc276.dev.qintra.com/pcf/tibco/tibco.zip
         
+        # tibco 
+        # http://lxomavmtc276.dev.qintra.com/pcf/tibco/tibco.zip
+        
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
       end
 
