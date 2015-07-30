@@ -13,21 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Configuration for JRE repositories keyed by vendor
-# If Java 7 is required, permgen will be used instead of metaspace. Please see the documentation for more detail.
+# Configuration for the CA Wily framework
 ---
-jre:
-  version: 1.8.0_+
-  repository_root: "{default.repository.root}/openjdk/{platform}/{architecture}"
-memory_calculator:
-  version: 1.+
-  repository_root: "{default.repository.root}/memory-calculator/{platform}/{architecture}"
-  memory_sizes:
-    metaspace: 64m..
-    permgen: 64m..
-  memory_heuristics:
-    heap: 75
-    metaspace: 10
-    permgen: 10
-    stack: 5
-    native: 10
+repository_root: ""
+version: 9.7.+
+default_agent_name: "$(expr \"$VCAP_APPLICATION\" : \'.*application_name[\": ]*\\([A-Za-z0-9_-]*\\).*\')"

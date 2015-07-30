@@ -1,10 +1,6 @@
 # JRebel Agent Framework
-<<<<<<< HEAD
-The JRebel Agent Framework causes an application to be automatically configured to work with an IDE using [JRebel][].
-=======
 
 The JRebel Agent Framework causes an application to be automatically configured to work with [JRebel][]. Pushing any [JRebel Cloud/Remote][] enabled application (containing `rebel-remote.xml`) will automatically download the latest version of [JRebel][] and set it up for use.
->>>>>>> upstream/master
 
 <table>
   <tr>
