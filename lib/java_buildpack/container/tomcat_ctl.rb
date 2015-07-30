@@ -37,7 +37,8 @@ module JavaBuildpack
         @droplet.java_opts.add_system_property 'http.port', '$PORT'
 
         [
-          @droplet.java_home.as_env_var,
+          'LD_LIBRARY_PATH=./.java-buildpack/tibco_bus/lib/lib/linux-i686:./.java-buildpack/tibco_bus/lib/lib/linux-i686/ipm:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64/64:./.java-buildpack/tibco_bus/lib/lib/linux-x86_64/ipm',
+@droplet.java_home.as_env_var,
           @droplet.java_opts.as_env_var,
           "$PWD/#{(@droplet.sandbox + 'bin/catalina.sh').relative_path_from(@droplet.root)}",
           'run'
