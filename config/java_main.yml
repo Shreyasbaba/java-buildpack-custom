@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Configuration for the MariaDB JDBC framework
+# Configuration for the Java Main container
 ---
-version: 1.2.+
-repository_root: ! '{default.repository.root}/mariadb-jdbc'
+java_main_class:
+arguments:
