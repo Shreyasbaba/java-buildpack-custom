@@ -79,9 +79,10 @@ module JavaBuildpack
       #                                                       be an instance of +ImmutableJavaHome+.
       # @param [JavaOpts] java_opts                           the shared +JavaOpts+ instance for all components
       # @param [Pathname] root                                the root of the droplet
-      def initialize(additional_libraries, component_id, java_home, java_opts, root)
+      def initialize(additional_libraries, component_id, env_vars, java_home, java_opts, root)
         @additional_libraries = additional_libraries
         @component_id         = component_id
+        @environment_variables = env_vars
         @java_home            = java_home
         @java_opts            = java_opts
         @logger               = JavaBuildpack::Logging::LoggerFactory.instance.get_logger Droplet
