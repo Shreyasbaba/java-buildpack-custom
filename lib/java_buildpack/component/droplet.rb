@@ -42,6 +42,10 @@ module JavaBuildpack
       # @return [String] the id of component using this droplet
       attr_reader :component_id
 
+      # @!attribute [r] environment_variables
+      # @return [EnvironmentVariables] the shared +EnvironmentVariables+ instance for all components
+      attr_reader :environment_variables
+
       # @!attribute [r] java_home
       # @return [ImmutableJavaHome, MutableJavaHome] the shared +JavaHome+ instance for all components.  If the
       #                                              component using this instance is a jre, then this will be an
@@ -67,6 +71,8 @@ module JavaBuildpack
       # @param [AdditionalLibraries] additional_libraries     the shared +AdditionalLibraries+ instance for all
       #                                                       components
       # @param [String] component_id                          the id of the component that will use this +Droplet+
+      # @param [EnvironmentVariables] env_vars                the shared +EnvironmentVariables+ instance for all
+      #                                                       components
       # @param [ImmutableJavaHome, MutableJavaHome] java_home the shared +JavaHome+ instance for all components.  If the
       #                                                       component using this instance is a jre, then this should
       #                                                       be an instance of +MutableJavaHome+.  Otherwise it should
