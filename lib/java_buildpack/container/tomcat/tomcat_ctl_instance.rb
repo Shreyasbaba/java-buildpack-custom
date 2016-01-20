@@ -66,6 +66,7 @@ module JavaBuildpack
         # http://lxomavmtc276.dev.qintra.com/pcf/tibco/tibco.zip
         
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
+        @droplet.additional_libraries.link_to web_inf_lib
       end
 
       # (see JavaBuildpack::Component::BaseComponent#release)
@@ -138,7 +139,7 @@ module JavaBuildpack
       end
 
       def expand(file)
-        with_timing "Expanding EAP to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
+        with_timing "Expanding #{@component_name} to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 

@@ -34,6 +34,10 @@ module JavaBuildpack
       # @return [AdditionalLibraries] the shared +AdditionalLibraries+ instance for all components
       attr_reader :additional_libraries
 
+      # @!attribute [r] additional_classes
+      # @return [AdditionalClasses] the shared +AdditionalLibraries+ instances for all components
+      attr_reader :additional_classes
+
       # @!attribute [r] component_id
       # @return [String] the id of component using this droplet
       attr_reader :component_id
