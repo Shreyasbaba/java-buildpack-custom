@@ -19,7 +19,7 @@ When binding AppDynamics using a user-provided service, it must have name or tag
 | ---- | -----------
 | `account-access-key` | (Optional) The account access key to use when authenticating with the controller
 | `account-name` | (Optional) The account name to use when authenticating with the controller
-| `application-name` | (Optional) the applicationa's name
+| `application-name` | (Optional) the application's name
 | `host-name` | The controller host name
 | `node-name` | (Optional) the application's node name
 | `port` | (Optional) The controller port
@@ -29,7 +29,7 @@ When binding AppDynamics using a user-provided service, it must have name or tag
 To provide more complex values such as the `tier-name`, using the interactive mode when creating a user-provided service will manage the character escaping automatically. For example, the default `tier-name` could be set with a value of `Tier-$(expr "$VCAP_APPLICATION" : '.*instance_index[": ]*\([[:digit:]]*\).*')` to calculate a value from the Cloud Foundry instance index.
 
 ## Configuration
-For general information on configuring the buildpack, refer to [Configuration and Extension][].
+For general information on configuring the buildpack, including how to specify configuration values through environment variables, refer to [Configuration and Extension][].
 
 The framework can be configured by modifying the [`config/app_dynamics_agent.yml`][] file in the buildpack fork. The framework uses the [`Repository` utility support][repositories] and so it supports the [version syntax][] defined there.
 

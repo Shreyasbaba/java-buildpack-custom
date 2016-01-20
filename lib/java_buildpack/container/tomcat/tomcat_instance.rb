@@ -37,7 +37,6 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
         download(@version, @uri) { |file| expand file }
-        manipulate(@application.root.children)
         link_to(@application.root.children, root)
         @droplet.additional_libraries << tomcat_datasource_jar if tomcat_datasource_jar.exist?
         @droplet.additional_libraries.link_to web_inf_lib
@@ -48,16 +47,6 @@ module JavaBuildpack
       end
 
       protected
-
-      def manipulate(children)
-        puts "Trying out files........................................................"
-        children.each { | file | 
-          puts file 
-          if(file.directory?) 
-            manipulate(file.children)
-          end
-        }
-      end
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
@@ -98,7 +87,7 @@ module JavaBuildpack
       end
 
       def expand(file)
-        with_timing "Expanding Tomcat to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
+        with_timing "Expanding #{@component_name} to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           FileUtils.mkdir_p @droplet.sandbox
           shell "tar xzf #{file.path} -C #{@droplet.sandbox} --strip 1 --exclude webapps 2>&1"
 

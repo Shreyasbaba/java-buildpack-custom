@@ -33,10 +33,6 @@ module JavaBuildpack
       # @!attribute [r] additional_libraries
       # @return [AdditionalLibraries] the shared +AdditionalLibraries+ instance for all components
       attr_reader :additional_libraries
-      
-      # @!attribute [r] additional_classes
-      # @return [AdditionalClasses] the shared +AdditionalLibraries+ instances for all components
-      attr_reader :additional_classes
 
       # @!attribute [r] component_id
       # @return [String] the id of component using this droplet
@@ -80,13 +76,12 @@ module JavaBuildpack
       # @param [JavaOpts] java_opts                           the shared +JavaOpts+ instance for all components
       # @param [Pathname] root                                the root of the droplet
       def initialize(additional_libraries, component_id, env_vars, java_home, java_opts, root)
-        @additional_libraries = additional_libraries
-        @component_id         = component_id
+        @additional_libraries  = additional_libraries
+        @component_id          = component_id
         @environment_variables = env_vars
-        @java_home            = java_home
-        @java_opts            = java_opts
-        @logger               = JavaBuildpack::Logging::LoggerFactory.instance.get_logger Droplet
-        @additional_classes   = AdditionalLibraries.new(root)
+        @java_home             = java_home
+        @java_opts             = java_opts
+        @logger                = JavaBuildpack::Logging::LoggerFactory.instance.get_logger Droplet
 
         buildpack_root = root + '.java-buildpack'
         sandbox_root   = buildpack_root + component_id

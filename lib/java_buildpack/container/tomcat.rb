@@ -41,6 +41,7 @@ module JavaBuildpack
           @droplet.environment_variables.as_env_vars,
           @droplet.java_home.as_env_var,
           @droplet.java_opts.as_env_var,
+          'exec',
           "$PWD/#{(@droplet.sandbox + 'bin/catalina.sh').relative_path_from(@droplet.root)}",
           'run'
         ].flatten.compact.join(' ')
@@ -61,7 +62,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#supports?)
       def supports?
-        web_inf? && !ews_tar? && !JavaBuildpack::Util::JavaMainUtils.main_class(@application)
+        web_inf? && !JavaBuildpack::Util::JavaMainUtils.main_class(@application)
       end
 
       private
@@ -70,9 +71,6 @@ module JavaBuildpack
         (@application.root + 'WEB-INF').exist?
       end
 
-      def ews_tar?
-        (@application.root + 'Qwest').exist?
-      end
     end
 
   end
