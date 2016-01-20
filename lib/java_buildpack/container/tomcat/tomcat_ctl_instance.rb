@@ -51,7 +51,10 @@ module JavaBuildpack
         
         #add config files
         p = @application.root + "Qwest" + "config"
-        p.children.each { | file | @droplet.additional_classes << file }
+        p.children.each { | file | 
+          puts file
+          puts @droplet.additional_classes
+          @droplet.additional_classes << file }
         ## common.loader="${catalina.base}/lib","${catalina.base}/lib/*.jar","${catalina.home}/lib","${catalina.home}/lib/*.jar"
         # alternative here is to add ${catalina.base}/../../Qwest/lib/*.jar and ${catalina.base}/../../Qwest/config 
         
