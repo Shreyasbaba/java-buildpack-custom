@@ -62,7 +62,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#supports?)
       def supports?
-        web_inf? && !JavaBuildpack::Util::JavaMainUtils.main_class(@application)
+        web_inf? && !ews_tar? && !JavaBuildpack::Util::JavaMainUtils.main_class(@application)
       end
 
       private
@@ -71,6 +71,9 @@ module JavaBuildpack
         (@application.root + 'WEB-INF').exist?
       end
 
+      def ews_tar?
+        (@application.root + 'Qwest').exist?
+      end
     end
 
   end
