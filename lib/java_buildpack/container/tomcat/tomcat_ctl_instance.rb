@@ -51,6 +51,7 @@ module JavaBuildpack
         
         #add config files
         p = @application.root + "Qwest" + "config"
+        @droplet.additional_classes   = AdditionalLibraries.new(root) if @droplet.additional_classes.nil?
         p.children.each { | file | 
           puts "adding to CLASSPATH "
           puts file
