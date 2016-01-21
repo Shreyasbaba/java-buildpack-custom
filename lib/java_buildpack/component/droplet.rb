@@ -86,7 +86,7 @@ module JavaBuildpack
         @java_home             = java_home
         @java_opts             = java_opts
         @logger                = JavaBuildpack::Logging::LoggerFactory.instance.get_logger Droplet
-
+        @additional_classes    = AdditionalLibraries.new(root)
         buildpack_root = root + '.java-buildpack'
         sandbox_root   = buildpack_root + component_id
 
