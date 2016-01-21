@@ -27,6 +27,7 @@ module JavaBuildpack
     # Encapsulates the detect, compile, and release functionality for the Tomcat instance.
     class TomcatCtlInstance < JavaBuildpack::Component::VersionedDependencyComponent
       include JavaBuildpack::Container
+      include JavaBuildpack::Component
 
       # Creates an instance
       #
