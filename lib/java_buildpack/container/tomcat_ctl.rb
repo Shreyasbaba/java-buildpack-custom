@@ -1,6 +1,6 @@
 # Encoding: utf-8
 # Cloud Foundry Java Buildpack
-# Copyright 2013-2015 the original author or authors.
+# Copyright 2013-2016 the original author or authors.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +18,7 @@ require 'java_buildpack/component/modular_component'
 require 'java_buildpack/container'
 require 'java_buildpack/container/tomcat/tomcat_insight_support'
 require 'java_buildpack/container/tomcat/tomcat_ctl_instance'
+require 'java_buildpack/container/tomcat/tomcat_external_configuration'
 require 'java_buildpack/container/tomcat/tomcat_lifecycle_support'
 require 'java_buildpack/container/tomcat/tomcat_logging_support'
 require 'java_buildpack/container/tomcat/tomcat_access_logging_support'
@@ -48,7 +49,7 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::ModularComponent#sub_components)
       def sub_components(context)
-        [
+        components = [
           TomcatCtlInstance.new(sub_configuration_context(context, 'tomcat')),
           TomcatLifecycleSupport.new(sub_configuration_context(context, 'lifecycle_support')),
           TomcatLoggingSupport.new(sub_configuration_context(context, 'logging_support')),
@@ -56,8 +57,14 @@ module JavaBuildpack
           TomcatRedisStore.new(sub_configuration_context(context, 'redis_store')),
           TomcatGemfireStore.new(sub_configuration_context(context, 'gemfire_store')),
           TomcatInsightSupport.new(context)
-        ]
-      end
+          ]
+  
+          tomcat_configuration = @configuration['tomcat']
+          components << TomcatExternalConfiguration.new(sub_configuration_context(context, 'external_configuration')) if
+            tomcat_configuration['external_configuration_enabled']
+  
+          components
+        end
 
       # (see JavaBuildpack::Component::ModularComponent#supports?)
       def supports?
