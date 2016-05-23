@@ -81,7 +81,7 @@ module JavaBuildpack
           'exec',
           "#{qualify_path @droplet.java_home.root, @droplet.root}/bin/java",
           '$JAVA_OPTS',
-          @droplet.additional_libraries.as_classpath,
+          classpath,
           main_class,
           arguments
         ].flatten.compact.join(' ')

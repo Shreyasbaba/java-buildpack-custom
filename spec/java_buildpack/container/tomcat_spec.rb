@@ -35,7 +35,7 @@ describe JavaBuildpack::Container::Tomcat do
       'lifecycle_support'      => lifecycle_support_configuration,
       'logging_support'        => logging_support_configuration,
       'access_logging_support' => access_logging_support_configuration,
-      'redis_store'            => redis_store_configuration ,
+      'redis_store'            => redis_store_configuration,
       'external_configuration' => tomcat_external_configuration }
   end
 
