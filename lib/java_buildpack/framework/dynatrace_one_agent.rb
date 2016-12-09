@@ -17,12 +17,21 @@
 require 'fileutils'
 require 'java_buildpack/component/versioned_dependency_component'
 require 'java_buildpack/framework'
+require 'json'
 
 module JavaBuildpack
   module Framework
 
-    # Encapsulates the functionality for enabling zero-touch Ruxit support.
-    class RuxitAgent < JavaBuildpack::Component::VersionedDependencyComponent
+    # Encapsulates the functionality for enabling zero-touch Dynatrace SaaS/Managed support.
+    class DynatraceOneAgent < JavaBuildpack::Component::VersionedDependencyComponent
+
+      # Creates an instance
+      #
+      # @param [Hash] context a collection of utilities used the component
+      def initialize(context)
+        super(context)
+        @version, @uri = agent_download_url if supports? && supports_apitoken?
+      end
 
       # (see JavaBuildpack::Component::BaseComponent#compile)
       def compile
@@ -46,10 +55,6 @@ module JavaBuildpack
           environment_variables.add_environment_variable(RUXIT_APPLICATION_ID, application_id)
         end
 
-        unless environment.key?(RUXIT_CLUSTER_ID)
-          environment_variables.add_environment_variable(RUXIT_CLUSTER_ID, cluster_id)
-        end
-
         environment_variables.add_environment_variable(RUXIT_HOST_ID, host_id) unless environment.key?(RUXIT_HOST_ID)
       end
 
@@ -57,16 +62,19 @@ module JavaBuildpack
 
       # (see JavaBuildpack::Component::VersionedDependencyComponent#supports?)
       def supports?
-        @application.services.one_service? FILTER, TENANT, TENANTTOKEN
+        @application.services.one_service? FILTER, [ENVIRONMENTID, TENANT], [APITOKEN, TENANTTOKEN]
+      end
+
+      def supports_apitoken?
+        credentials = @application.services.find_service(FILTER)['credentials']
+        credentials[APITOKEN] ? true : false
       end
 
       private
 
-      FILTER = /ruxit/.freeze
+      FILTER = /ruxit|dynatrace/
 
       RUXIT_APPLICATION_ID = 'RUXIT_APPLICATIONID'.freeze
-
-      RUXIT_CLUSTER_ID = 'RUXIT_CLUSTER_ID'.freeze
 
       RUXIT_HOST_ID = 'RUXIT_HOST_ID'.freeze
 
@@ -76,26 +84,48 @@ module JavaBuildpack
 
       TENANTTOKEN = 'tenanttoken'.freeze
 
-      private_constant :FILTER, :RUXIT_APPLICATION_ID, :RUXIT_CLUSTER_ID, :RUXIT_HOST_ID, :SERVER, :TENANT, :TENANTTOKEN
+      APITOKEN = 'apitoken'.freeze
+
+      APIURL = 'apiurl'.freeze
+
+      ENVIRONMENTID = 'environmentid'.freeze
+
+      ENDPOINT = 'endpoint'.freeze
+
+      private_constant :FILTER, :RUXIT_APPLICATION_ID, :RUXIT_HOST_ID, :SERVER, :TENANT, :TENANTTOKEN, :APITOKEN
+      private_constant :ENVIRONMENTID, :ENDPOINT, :APIURL
 
       def agent_dir
         @droplet.sandbox + 'agent'
       end
 
       def agent_path
-        agent_dir + 'lib64/libruxitagentloader.so'
+        libpath = agent_dir + 'lib64/liboneagentloader.so'
+        libpath = agent_dir + 'lib64/libruxitagentloader.so' unless File.file?(libpath)
+        libpath
+      end
+
+      def agent_download_url
+        credentials = @application.services.find_service(FILTER)['credentials']
+        download_uri = "#{api_base_url}/v1/deployment/installer/agent/unix/paas/latest?include=java&bitness=64&"
+        download_uri += "Api-Token=#{credentials[APITOKEN]}"
+        ['latest', download_uri]
+      end
+
+      def api_base_url
+        credentials = @application.services.find_service(FILTER)['credentials']
+        return credentials[APIURL] unless credentials[APIURL].nil?
+        base_url = credentials[ENDPOINT] || credentials[SERVER] || "https://#{tenant(credentials)}.live.dynatrace.com"
+        base_url = base_url.gsub('/communication', '').concat('/api').gsub(':8443', '').gsub(':443', '')
+        base_url
       end
 
       def application_id
         @application.details['application_name']
       end
 
-      def cluster_id
-        @application.details['application_name']
-      end
-
       def expand(file)
-        with_timing "Expanding Ruxit Agent to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
+        with_timing "Expanding Dynatrace OneAgent to #{@droplet.sandbox.relative_path_from(@droplet.root)}" do
           Dir.mktmpdir do |root|
             root_path = Pathname.new(root)
             shell "unzip -qq #{file.path} -d #{root_path} 2>&1"
@@ -109,20 +139,31 @@ module JavaBuildpack
       end
 
       def server(credentials)
-        credentials[SERVER] || "https://#{tenant(credentials)}.live.ruxit.com:443/communication"
+        given_endp = credentials[ENDPOINT] || credentials[SERVER] || "https://#{tenant(credentials)}.live.dynatrace.com"
+        supports_apitoken? ? server_from_api : given_endp
+      end
+
+      def server_from_api
+        endpoints = JSON.parse(File.read(@droplet.sandbox + 'manifest.json'))['communicationEndpoints']
+        endpoints.join('\;')
       end
 
       def tenant(credentials)
-        credentials[TENANT]
+        credentials[ENVIRONMENTID] || credentials[TENANT]
       end
 
       def tenanttoken(credentials)
-        credentials[TENANTTOKEN]
+        supports_apitoken? ? tenanttoken_from_api : credentials[TENANTTOKEN]
+      end
+
+      def tenanttoken_from_api
+        JSON.parse(File.read(@droplet.sandbox + 'manifest.json'))['tenantToken']
       end
 
       def unpack_agent(root)
         FileUtils.mkdir_p(@droplet.sandbox)
         FileUtils.mv(root + 'agent', @droplet.sandbox)
+        FileUtils.mv(root + 'manifest.json', @droplet.sandbox)
       end
 
     end

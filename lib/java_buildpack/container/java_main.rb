@@ -52,7 +52,6 @@ module JavaBuildpack
       # (see JavaBuildpack::Component::BaseComponent#release)
       def release
         manifest_class_path.each { |path| @droplet.additional_libraries << path }
-        @droplet.environment_variables.add_environment_variable 'SERVER_PORT', '$PORT' if boot_launcher?
 
         if @spring_boot_utils.is?(@application)
           @droplet.environment_variables.add_environment_variable 'SERVER_PORT', '$PORT'
@@ -89,10 +88,6 @@ module JavaBuildpack
 
       def arguments
         @configuration[ARGUMENTS_PROPERTY]
-      end
-
-      def boot_launcher?
-        main_class =~ /^org\.springframework\.boot\.loader\.(?:[JW]ar|Properties)Launcher$/
       end
 
       def main_class

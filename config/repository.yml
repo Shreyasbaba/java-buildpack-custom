@@ -15,6 +15,7 @@
 
 # Repository configuration
 ---
-default_repository_root: https://download.run.pivotal.io
+default_repository_root: https://java-buildpack.cloudfoundry.org
+#default_repository_root: https://download.run.pivotal.io
 #default_repository_root: https://download.run.pivotal.io
 # ctl_repository_root: http://151.117.209.161:50000

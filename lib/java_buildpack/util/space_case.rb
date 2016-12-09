@@ -17,11 +17,12 @@
 # A mixin that adds the ability to turn a +String+ into space case
 class String
 
-  # Converts a string to space case.  For example, the Spring +SpaceCase+ would become +Space Case+.
+  # Converts a string to space case.  For example, the String +SpaceCase+ would become +Space Case+.
   #
   # @return [String] The space case rendering of this +String+
   def space_case
-    split('::').last
+    split('::')
+      .last
       .gsub(/([A-Z]+)([A-Z][a-z])/, '\1 \2')
       .gsub(/([a-z\d])([A-Z])/, '\1 \2')
       .tr('-', ' ')
